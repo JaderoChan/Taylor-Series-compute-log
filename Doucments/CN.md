@@ -7,16 +7,16 @@
 ## 一、自然对数函数的泰勒展开
 
 $$
-泰勒级数：\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n
-\\\\newline
-对f(x)=ln(x)\quad(a=1)进行泰勒展开得
-\\\\
-\Rightarrow  \frac{f^{(0)}(1)}{0!}(x-1)^0+\frac{f^{(1)}(1)}{1!}(x-1)^1+\frac{f^{(2)}(1)}{2!}(x-1)^2+\cdots+\frac{f^{(n)}(1)}{n!}(x-1)^n
-\\\\
-\Rightarrow  0+(x-1)+(-\frac{1}{2})(x-1)^2+(\frac{2}{2\times3})(x-1)^3+(-\frac{6}{2\times3\times4})(x-1)^4+\cdots
-\\\\
-\Rightarrow  \frac{(x-1)^1}{1}-\frac{(x-1)^2}{2}+\frac{(x-1)^3}{3}-\frac{(x-1)^4}{4}+\cdots
-\\\\
+泰勒级数：\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n\
+
+对f(x)=ln(x)\quad(a=1)进行泰勒展开得\
+
+\Rightarrow  \frac{f^{(0)}(1)}{0!}(x-1)^0+\frac{f^{(1)}(1)}{1!}(x-1)^1+\frac{f^{(2)}(1)}{2!}(x-1)^2+\cdots+\frac{f^{(n)}(1)}{n!}(x-1)^n\
+
+\Rightarrow  0+(x-1)+(-\frac{1}{2})(x-1)^2+(\frac{2}{2\times3})(x-1)^3+(-\frac{6}{2\times3\times4})(x-1)^4+\cdots\
+
+\Rightarrow  \frac{(x-1)^1}{1}-\frac{(x-1)^2}{2}+\frac{(x-1)^3}{3}-\frac{(x-1)^4}{4}+\cdots\
+
 \Rightarrow  \sum_{n=1}^{\infty}(-1)^{n-1}\frac{(x-1)^n}{n}
 $$
 
