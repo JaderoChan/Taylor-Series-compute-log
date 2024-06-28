@@ -111,7 +111,7 @@ $$
 \\
 \therefore ln(2)=16ln(2^\frac{1}{16})
 \\
-\ast \quad 2-1=1, \ \sqrt[16]{2}-1\approx 0.0442737 \quad \ast
+\ast \quad 2-1=1, \quad \sqrt[16]{2}-1\approx 0.0442737 \quad \ast
 \\\\
 --ln(3)--
 \\\\
@@ -119,7 +119,7 @@ $$
 \\
 \therefore ln(3)=16ln(3^\frac{1}{16})
 \\
-\ast \quad 3-1=2, \ \sqrt[16]{3}-1\approx 0.0710754 \quad \ast
+\ast \quad 3-1=2, \quad \sqrt[16]{3}-1\approx 0.0710754 \quad \ast
 $$
 
 ## 五、代码实现
