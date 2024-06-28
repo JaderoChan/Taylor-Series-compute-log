@@ -8,9 +8,7 @@
 
 $$
 泰勒级数：\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n
-
-
-\\\\
+\\\\newline
 对f(x)=ln(x)\quad(a=1)进行泰勒展开得
 \\\\
 \Rightarrow  \frac{f^{(0)}(1)}{0!}(x-1)^0+\frac{f^{(1)}(1)}{1!}(x-1)^1+\frac{f^{(2)}(1)}{2!}(x-1)^2+\cdots+\frac{f^{(n)}(1)}{n!}(x-1)^n
