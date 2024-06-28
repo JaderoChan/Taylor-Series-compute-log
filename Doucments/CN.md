@@ -95,7 +95,7 @@ ln(F)=\frac{1}{2}ln(2)+(j-127)\times ln(2)+ln(\frac{\sqrt{2}}{2}m)
 \ast 偏离量：0.7071
 $$
 
-## 三、ln(2)与ln(3)的求解
+## 四、ln(2)与ln(3)的求解
 
 上文中用到了常数$$ln(2)$$与$$ln(3)$$，二者皆可通过将其标准化至1的领域进行泰勒展开求解。
 
@@ -119,7 +119,7 @@ $$
 \ast \quad 3-1=2, \ \sqrt[16]{3}-1\approx 0.0710754 \quad \ast
 $$
 
-## 四、代码实现
+## 五、代码实现
 
 ```cpp
 #include <cmath>
@@ -236,7 +236,7 @@ inline double log(double base, double x) {
 }
 ```
 
-## 五、测试对比代码
+## 六、测试对比代码
 
 ```cpp
 #include <iostream>
@@ -277,7 +277,7 @@ inline void logPerformanceCompare(int testCount = 100'000) {
 }
 ```
 
-## 六、比对结果
+## 七、比对结果
 
 ![](./TestResults/2024-06-28_144900.png)
 
