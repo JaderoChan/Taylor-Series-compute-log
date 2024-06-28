@@ -279,9 +279,9 @@ inline void logPerformanceCompare(int testCount = 100'000) {
 
 ## 七、比对结果
 
-![](./TestResults/2024-06-28_144900.png)
+![](../TestResults/2024-06-28_144900.png)
 
-![](./TestResults/2024-06-28_144437.png)
+![](../TestResults/2024-06-28_144437.png)
 
 1、速度上在十万的量级上有15ms左右的差距，标准库可能用到了常量表、优化算法、其他速度更快的计算方法。
 
