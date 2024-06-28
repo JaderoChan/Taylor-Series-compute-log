@@ -1,4 +1,4 @@
-<center><h1><b>在计算机程序中通过泰勒级数求解对数函数</b></h1></center>
+<h1><b><center>在计算机程序中通过泰勒级数求解对数函数</center></b></h1>
 
 
 
@@ -43,23 +43,27 @@ $$
 对于浮点数而言，使用s代表其符号位，使用j代表其阶码，使用m代表其尾数。
 由其存储方式可得单精度浮点数（下文默认使用单精度浮点数）
 $$
-F32=(-1)^s\times m\times\ 2^{(j-127)}
+F32=(-1)^s\times m\times 2^{(j-127)}
 $$
 或双精度浮点数
 $$
-F64=(-1)^s\times m\times\ 2^{(j-1023)}
+F64=(-1)^s\times m\times 2^{(j-1023)}
 $$
 由于对数函数定义域为$(0,+\infty)$，故s始终为0，即
 $$
-F=m\times\ 2^{(j-127)}
+F=m\times 2^{(j-127)}
 $$
 则浮点数作为自变量求解对数函数如下
 $$
-ln(F)=ln(m\times\ 2^{(j-127)})\\=ln(m)+ln(2^{(j-127)})\\=ln(m)+(j-127)\times ln(2)
+ln(F)=ln(m\times 2^{(j-127)})
+\\
+=ln(m)+ln(2^{(j-127)})
+\\
+=ln(m)+(j-127)\times ln(2)
 $$
 现需要将$m\in[1,2)$进行标准化，使其更加接近1，以增加计算精度。
 
-<center><b>【法一】</b></center>
+<p><b><center>【法一】</center></b></p>
 
 $$
 ln(\frac{3}{2}\cdot\frac{2}{3}\cdot m)=ln(3)-ln(2)+ln(\frac{2}{3}m)
@@ -74,10 +78,10 @@ ln(F)=ln(3)-ln(2)+(j-127)\times ln(2)+ln(\frac{2}{3}m)
 \\
 故只需对ln(\frac{2}{3}m)进行泰勒展开求和即可
 \\\\
-\ast 偏离量：0.6667
+\ast 偏离量：0.6667 \ast
 $$
 
-<center><b>【法二】</b></center>
+<p><b><center>【法二】</center></b></p>
 
 $$
 ln(\sqrt{2}\cdot\frac{\sqrt{2}}{2}\cdot m)=\frac{1}{2}ln(2)+ln(\frac{\sqrt{2}}{2}m)
@@ -92,25 +96,24 @@ ln(F)=\frac{1}{2}ln(2)+(j-127)\times ln(2)+ln(\frac{\sqrt{2}}{2}m)
 \\
 故只需对ln(\frac{\sqrt{2}}{2}m)进行泰勒展开求和即可
 \\\\
-\ast 偏离量：0.7071
+\ast 偏离量：0.7071 \ast
 $$
 
 ## 四、ln(2)与ln(3)的求解
 
 上文中用到了常数$ln(2)$与$ln(3)$，二者皆可通过将其标准化至1的领域进行泰勒展开求解。
 
-在下面的代码实现中，函数*ln2ByTaylorSeries()*与*ln3ByTaylorSeries()*，通过以下方式将2与3标准化至1的领域。
+在下面的代码实现中，函数*ln2ByTaylorSeries()*与*ln3ByTaylorSeries()*，通过以下方式将2与3标准化至1的邻域。
 $$
-\S ln(2)
+--ln(2)--
 \\\\
 \because ln(2^\frac{1}{16})=\frac{1}{16}ln(2)
 \\
 \therefore ln(2)=16ln(2^\frac{1}{16})
 \\
 \ast \quad 2-1=1, \ \sqrt[16]{2}-1\approx 0.0442737 \quad \ast
-
-\\\\\\\\
-\S ln(3)
+\\\\
+--ln(3)--
 \\\\
 \because ln(3^\frac{1}{16})=\frac{1}{16}ln(3)
 \\
@@ -279,9 +282,9 @@ inline void logPerformanceCompare(int testCount = 100'000) {
 
 ## 七、比对结果
 
-![](../TestResults/2024-06-28_144900.png)
+![2024-06-28_144900](./assets/2024-06-28_144900.png)
 
-![](../TestResults/2024-06-28_144437.png)
+![2024-06-28_144437](./assets/2024-06-28_144437.png)
 
 1、速度上在十万的量级上有15ms左右的差距，标准库可能用到了常量表、优化算法、其他速度更快的计算方法。
 
