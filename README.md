@@ -1,2 +1,3 @@
-# Taylor-Series-compute-log
-Use Taylor Series compute log() in c++.
+# Compute log() by Taylor Series
+You should look doucments first.
+你应该先去看文档里的内容。
