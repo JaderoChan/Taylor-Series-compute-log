@@ -69,8 +69,8 @@ double lnVersion1(double x, int series = 10) {
     unsigned long long _x = *reinterpret_cast<unsigned long long*>(&x);
     // Get the float point num's exp.
     int j = _x >> 52;
-    // Get the float point num's mantissa. The (unsigned long long(0x3ff0) << 48) is a double it = 1.0.
-    _x = (unsigned long long) (0x3ff0) << 48 ^ (_x << 12 >> 12);
+    // Get the float point num's mantissa. The (0x3ff0ULL << 48) is a double it = 1.0.
+    _x = 0x3ff0ULL << 48 ^ (_x << 12 >> 12);
     // Cast the bit operated unsigned long long to double.
     double m = *reinterpret_cast<double*>(&_x);
     // Let "x" more close 1 for higher precision.
@@ -97,7 +97,7 @@ double lnVersion2(double x, int series = 10) {
         return 0.0;
     unsigned long long _x = *reinterpret_cast<unsigned long long*>(&x);
     int j = _x >> 52;
-    _x = (unsigned long long) (0x3ff0) << 48 ^ (_x << 12 >> 12);
+    _x = 0x3ff0ULL << 48 ^ (_x << 12 >> 12);
     double m = *reinterpret_cast<double*>(&_x);
     m = std::pow(2.0, 0.5) * m / 2.0;
     double sum = 0.0;
