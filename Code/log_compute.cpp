@@ -17,8 +17,8 @@ $$
 /// @brief Compute the ln(2) by Taylor series.
 /// @param series The series larger, result more precise, but no obvious effects if the series over 7 places.
 double ln2ByTaylorSeries(int series = 1e6) {
-    double sum = 0;
-    double x = std::pow(2, 0.0625) - 1;
+    double sum = 0.0;
+    double x = std::pow(2.0, 0.0625) - 1.0;
     bool isPositive = true;
     for (int i = 1; i <= series; ++i) {
         if (isPositive)
@@ -27,7 +27,7 @@ double ln2ByTaylorSeries(int series = 1e6) {
             sum -= std::pow(x, i) / i;
         isPositive = !isPositive;
     }
-    return 16 * sum;
+    return 16.0 * sum;
 }
 
 /*
@@ -42,8 +42,8 @@ $$
 /// @brief Compute the ln(2) by Taylor series.
 /// @param series The series larger, result more precise, but no obvious effects if the series over 7 places.
 double ln3ByTaylorSeries(int series = 1e6) {
-    double sum = 0;
-    double x = std::pow(3, 0.0625) - 1;
+    double sum = 0.0;
+    double x = std::pow(3.0, 0.0625) - 1.0;
     bool isPositive = true;
     for (int i = 1; i <= series; ++i) {
         if (isPositive)
@@ -52,7 +52,7 @@ double ln3ByTaylorSeries(int series = 1e6) {
             sum -= std::pow(x, i) / i;
         isPositive = !isPositive;
     }
-    return 16 * sum;
+    return 16.0 * sum;
 }
 
 const double LN2 = ln2ByTaylorSeries();
@@ -61,10 +61,10 @@ const double LN3 = ln3ByTaylorSeries();
 /// @param series The series larger, result more precise.
 /// @note The m in range[1,2), 2m/3 in range[2/3, 4/3). Let "x" moer close 1 for higher precision.
 double lnVersion1(double x, int series = 10) {
-    if (x <= 0)      // The log() domain of definition is (0, +infty).
+    if (x <= 0.0)      // The log() domain of definition is (0, +infty).
         throw std::domain_error("The x must is positive.");
-    if (x == 1)    // The ln(1) = 0.
-        return 0;
+    if (x == 1.0)    // The ln(1) = 0.
+        return 0.0;
     // Cast the double to unsigned long long for bit operation.
     unsigned long long _x = *reinterpret_cast<unsigned long long*>(&x);
     // Get the float point num's exp.
@@ -74,46 +74,46 @@ double lnVersion1(double x, int series = 10) {
     // Cast the bit operated unsigned long long to double.
     double m = *reinterpret_cast<double*>(&_x);
     // Let "x" more close 1 for higher precision.
-    m = 2 * m / 3;
+    m = 2.0 * m / 3.0;
     // The Taylor series expanded summation.
-    double sum = 0;
+    double sum = 0.0;
     bool isPositive = true;
     for (int i = 1; i <= series; ++i) {
         if (isPositive)
-            sum += std::pow((m - 1), i) / i;
+            sum += std::pow((m - 1.0), i) / i;
         else
-            sum -= std::pow((m - 1), i) / i;
+            sum -= std::pow((m - 1.0), i) / i;
         isPositive = !isPositive;
     }
-    return sum + LN3 - LN2 + (j - 1023) * LN2;
+    return sum + LN3 - LN2 + (j - 1023.0) * LN2;
 }
 
 /// @param series The series larger, result more precise
 /// @note The m in range[1,2), √2m/2 in range[√2/2, √2). Let x moer close 1 for get higher precision.
 double lnVersion2(double x, int series = 10) {
-    if (x <= 0)
+    if (x <= 0.0)
         throw std::domain_error("The x must is positive.");
-    if (x == 1)
-        return 0;
+    if (x == 1.0)
+        return 0.0;
     unsigned long long _x = *reinterpret_cast<unsigned long long*>(&x);
     int j = _x >> 52;
     _x = (unsigned long long) (0x3ff0) << 48 ^ (_x << 12 >> 12);
     double m = *reinterpret_cast<double*>(&_x);
-    m = std::pow(2, 0.5) * m / 2;
-    double sum = 0;
+    m = std::pow(2.0, 0.5) * m / 2.0;
+    double sum = 0.0;
     bool isPositive = true;
     for (int i = 1; i <= series; ++i) {
         if (isPositive)
-            sum -= std::pow((m - 1), i) / i;
+            sum -= std::pow((m - 1.0), i) / i;
         else
-            sum += std::pow((m - 1), i) / i;
+            sum += std::pow((m - 1.0), i) / i;
         isPositive = !isPositive;
     }
-    return sum + LN2 / 2 + (j - 1023) * LN2;
+    return sum + LN2 / 2.0 + (j - 1023.0) * LN2;
 }
 
 double log(double base, double x) {
-    if (base == 1)
+    if (base == 1.0)
         throw std::domain_error("The base num can't is 1.");
     return lnVersion1(x) / lnVersion1(base);
 }
@@ -171,6 +171,6 @@ void logPerformanceCompare(int testCount = 1e6, double start = 1.0, double step 
 int main()
 {
     benchmark_test::logPrecisionCompare();
-    // benchmark_test::logPerformanceCompare(1e6);
+    benchmark_test::logPerformanceCompare(1e6);
     return 0;
 }
