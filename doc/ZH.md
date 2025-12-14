@@ -1,8 +1,4 @@
-<h1><b><center>在计算机程序中通过泰勒级数求解对数函数</center></b></h1>
-
-
-
-
+# 在计算机程序中通过泰勒级数求解对数函数
 
 ## 一、自然对数函数的泰勒展开
 
@@ -282,9 +278,9 @@ inline void logPerformanceCompare(int testCount = 100'000) {
 
 ## 七、比对结果
 
-![2024-06-28_144900](../TestResults/2024-06-28_144900.png)
+![speed](../benchmark/speed.png)
 
-![2024-06-28_144437](../TestResults/2024-06-28_144437.png)
+![diff](../benchmark/diff.png)
 
 1、速度上在十万的量级上有15ms左右的差距，标准库可能用到了常量表、优化算法、其他速度更快的计算方法。
 
