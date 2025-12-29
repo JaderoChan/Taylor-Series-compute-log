@@ -1,6 +1,8 @@
+#include <cassert>
 #include <cmath>
-#include <iostream>
+#include <cstring>
 #include <exception>
+#include <iostream>
 
 namespace my_log
 {
