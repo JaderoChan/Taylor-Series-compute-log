@@ -37,21 +37,21 @@ double lnVersion1(double x, int series = 10) {
         return 0.0;
     // Cast the double to unsigned long long for bit operation.
     unsigned long long v;
-    memcpy(&v, &x, sizeof(v));
+    memcpy(&v, &x, sizeof(double));
     // Get the float point num's exp.
     int j = v >> 52;
     // Get the float point num's mantissa. The (0x3ff0ULL << 48) is a double it = 1.0.
     v = 0x3ff0ULL << 48 ^ (v << 12 >> 12);
     // Cast the bit operated unsigned long long to double.
-    double m = *reinterpret_cast<double*>(&v);
+    memcpy(&x, &v, sizeof(double));
     // Let "x" more close 1 for higher precision.
-    // m = 2.0 * m / 3.0;
-    m *= 0.666666666666666666666666666666;
+    // x = 2.0 * x / 3.0;
+    x *= 0.666666666666666666666666666666;
     // The Taylor series expanded summation.
     double result = 0.0;
     int sign = 1;
     for (int i = 1; i <= series; ++i) {
-        result += sign * powInt((m - 1.0), i) / i;
+        result += sign * powInt((x - 1.0), i) / i;
         sign *= -1;
     }
     return result + LN3 - LN2 + (double) (j - 1023) * LN2;
@@ -65,15 +65,16 @@ double lnVersion2(double x, int series = 10) {
     if (x == 1.0)
         return 0.0;
     unsigned long long v;
-    memcpy(&v, &x, sizeof(v));
+    memcpy(&v, &x, sizeof(double));
     int j = v >> 52;
     v = 0x3ff0ULL << 48 ^ (v << 12 >> 12);
-    double m = *reinterpret_cast<double*>(&v);
-    m = SQRT2 * m / 2.0;
+    memcpy(&x, &v, sizeof(double));
+    // x = SQRT2 * x / 2.0;
+    x *= 0.70710678118654752440084436210485;
     double result = 0.0;
     int sign = 1;
     for (int i = 1; i <= series; ++i) {
-        result += sign * powInt((m - 1.0), i) / i;
+        result += sign * powInt((x - 1.0), i) / i;
         sign *= -1;
     }
     return result + LN2 / 2.0 + (double) (j - 1023) * LN2;
