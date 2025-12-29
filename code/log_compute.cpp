@@ -1,4 +1,3 @@
-#include <cassert>
 #include <cmath>
 #include <cstring>
 #include <exception>
@@ -27,6 +26,8 @@ constexpr double LN2 = 0.693147180559945309417232121458;
 constexpr double LN3 = 1.098612288668109691395245236922;
 constexpr double SQRT2 = 1.414213562373095048801688724209;
 
+static_assert(sizeof(unsigned long long) == sizeof(double), "The size of unsigned long long must equal to double");
+
 /// @param series The series larger, result more precise.
 /// @note The m in range[1,2), 2m/3 in range[2/3, 4/3). Let "x" moer close 1 for higher precision.
 double lnVersion1(double x, int series = 10) {
@@ -36,7 +37,6 @@ double lnVersion1(double x, int series = 10) {
         return 0.0;
     // Cast the double to unsigned long long for bit operation.
     unsigned long long v;
-    static_assert(sizeof(v) == sizeof(x));
     memcpy(&v, &x, sizeof(v));
     // Get the float point num's exp.
     int j = v >> 52;
@@ -65,7 +65,6 @@ double lnVersion2(double x, int series = 10) {
     if (x == 1.0)
         return 0.0;
     unsigned long long v;
-    static_assert(sizeof(v) == sizeof(x));
     memcpy(&v, &x, sizeof(v));
     int j = v >> 52;
     v = 0x3ff0ULL << 48 ^ (v << 12 >> 12);
