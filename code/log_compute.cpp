@@ -33,7 +33,9 @@ double lnVersion1(double x, int series = 10) {
     if (x == 1.0)   // The ln(1) = 0.
         return 0.0;
     // Cast the double to unsigned long long for bit operation.
-    unsigned long long v = *reinterpret_cast<unsigned long long*>(&x);
+    unsigned long long v;
+    static_assert(sizeof(v) == sizeof(x));
+    memcpy(&v, &x, sizeof(v));
     // Get the float point num's exp.
     int j = v >> 52;
     // Get the float point num's mantissa. The (0x3ff0ULL << 48) is a double it = 1.0.
@@ -60,7 +62,9 @@ double lnVersion2(double x, int series = 10) {
         throw std::domain_error("The x must is positive.");
     if (x == 1.0)
         return 0.0;
-    unsigned long long v = *reinterpret_cast<unsigned long long*>(&x);
+    unsigned long long v;
+    static_assert(sizeof(v) == sizeof(x));
+    memcpy(&v, &x, sizeof(v));
     int j = v >> 52;
     v = 0x3ff0ULL << 48 ^ (v << 12 >> 12);
     double m = *reinterpret_cast<double*>(&v);
