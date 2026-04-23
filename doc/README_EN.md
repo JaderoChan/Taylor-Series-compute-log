@@ -1,130 +1,130 @@
-# 在计算机程序中通过泰勒级数求解对数函数
+# Solving Logarithmic Functions Using Taylor Series in Computer Programs
 
-[**简体中文** | [**English**](./doc/README_EN.md)]
+[[**简体中文**](./README_CN.md) | **English**]
 
-## 介绍
+## Introduction
 
-不借助任何第三方库与标准数学库，通过泰勒级数对对数函数进行求解。
+The logarithmic function is solved through the Taylor series without relying on any third-party libraries or standard mathematics libraries.
 
-## 一、自然对数函数的泰勒展开
-
-$$
-泰勒级数：\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n
-\\\\
-对f(x)=ln(x)\quad(a=1)进行泰勒展开得
-\\\\
-\Rightarrow  \frac{f^{(0)}(1)}{0!}(x-1)^0+\frac{f^{(1)}(1)}{1!}(x-1)^1+\frac{f^{(2)}(1)}{2!}(x-1)^2+\cdots+\frac{f^{(n)}(1)}{n!}(x-1)^n
-\\\\
-\Rightarrow  0+(x-1)+(-\frac{1}{2})(x-1)^2+(\frac{2}{2\times3})(x-1)^3+(-\frac{6}{2\times3\times4})(x-1)^4+\cdots
-\\\\
-\Rightarrow  \frac{(x-1)^1}{1}-\frac{(x-1)^2}{2}+\frac{(x-1)^3}{3}-\frac{(x-1)^4}{4}+\cdots
-\\\\
-\Rightarrow  \sum_{n=1}^{\infty}(-1)^{n-1}\frac{(x-1)^n}{n}
-$$
-
-## 二、有关自然对数函数泰勒展开求解的精度探讨
-
-对于相同的自变量$x$，影响泰勒展开后结果精度的因素有二：
-
-1. 泰勒展开的项数。展开项数越多，结果精度越高。
-2. 自变量$x$与$a$（此处$a=1$）的差的绝对值大小（记作$D$）。$D$越小，即$x$与$a$值越接近，结果精度越高。
+## I. Taylor Expansion of the Natural Logarithm Function
 
 $$
-对数函数的性质
+\text{Taylor Series:} \quad \sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n
+\\\\
+\text{Taylor expansion of } f(x)=\ln(x) \quad (a=1) \text{ yields}
+\\\\
+\Rightarrow \frac{f^{(0)}(1)}{0!}(x-1)^0+\frac{f^{(1)}(1)}{1!}(x-1)^1+\frac{f^{(2)}(1)}{2!}(x-1)^2+\cdots+\frac{f^{(n)}(1)}{n!}(x-1)^n
+\\\\
+\Rightarrow 0+(x-1)+(-\frac{1}{2})(x-1)^2+(\frac{2}{2\times3})(x-1)^3+(-\frac{6}{2\times3\times4})(x-1)^4+\cdots
+\\\\
+\Rightarrow \frac{(x-1)^1}{1}-\frac{(x-1)^2}{2}+\frac{(x-1)^3}{3}-\frac{(x-1)^4}{4}+\cdots
+\\\\
+\Rightarrow \sum_{n=1}^{\infty}(-1)^{n-1}\frac{(x-1)^n}{n}
+$$
+
+## II. Discussion on the Precision of the Taylor Expansion Solution for the Natural Logarithm Function
+
+For the same independent variable $x$, two factors affect the precision of the result after Taylor expansion:
+
+1. The number of terms in the Taylor expansion. More terms lead to higher precision.
+2. The absolute value of the difference between the independent variable $x$ and $a$ (here $a=1$), denoted as $D$. A smaller $D$, meaning $x$ is closer to $a$, results in higher precision.
+
+$$
+\text{Properties of the Logarithmic Function}
 \\
-ln(a\cdot b)=ln(a)+ln(b)
+\ln(a\cdot b)=\ln(a)+\ln(b)
 \\
-ln(a^b)=b\cdot ln(a)
+\ln(a^b)=b\cdot \ln(a)
 $$
 
-对于对数函数定义域$(0,+\infty)$内的任意$x$而言，使用上述性质将自变量标准化至1的邻域可以获得更精确的结果。
-例如：在相同展开项数的情况下，直接对$ln(2)$进行泰勒展开求解的精准度不如$4ln(2^{\frac{1}{4}})$。
+For any $x$ within the domain of the logarithmic function $(0,+\infty)$, standardizing the variable to a neighborhood of 1 using the above properties yields more accurate results.
+For example: With the same number of expansion terms, directly solving $\ln(2)$ via Taylor expansion is less accurate than solving $4\ln(2^{\frac{1}{4}})$.
 
-## 三、自变量为浮点数
+## III. Independent Variable as a Floating-Point Number
 
-对于浮点数而言，使用s代表其符号位，使用j代表其阶码，使用m代表其尾数。
-由其存储方式可得单精度浮点数（下文默认使用单精度浮点数）
+For a floating-point number, use $s$ for its sign bit, $j$ for its exponent, and $m$ for its mantissa.
+From its storage format, we have for a single-precision floating-point number (default is single-precision below)
 $$
 F32=(-1)^s\times m\times 2^{(j-127)}
 $$
-或双精度浮点数
+or for a double-precision floating-point number
 $$
 F64=(-1)^s\times m\times 2^{(j-1023)}
 $$
-由于对数函数定义域为$(0,+\infty)$，故s始终为0，即
+Since the domain of the logarithmic function is $(0,+\infty)$, $s$ is always 0, i.e.,
 $$
 F=m\times 2^{(j-127)}
 $$
-则浮点数作为自变量求解对数函数如下
+Thus, solving the logarithmic function with a floating-point number as the independent variable is as follows
 $$
-ln(F)=ln(m\times 2^{(j-127)})
+\ln(F)=\ln(m\times 2^{(j-127)})
 \\
-=ln(m)+ln(2^{(j-127)})
+=\ln(m)+\ln(2^{(j-127)})
 \\
-=ln(m)+(j-127)\times ln(2)
+=\ln(m)+(j-127)\times \ln(2)
 $$
-现需要将$m\in[1,2)$进行标准化，使其更加接近1，以增加计算精度。
+Now we need to standardize $m\in[1,2)$ to bring it closer to 1, thereby increasing computational precision.
 
-<p><b><center>【法一】</center></b></p>
+<p><b><center>【Method One】</center></b></p>
 
 $$
-ln(\frac{3}{2}\cdot\frac{2}{3}\cdot m)=ln(3)-ln(2)+ln(\frac{2}{3}m)
+\ln\left(\frac{3}{2}\cdot\frac{2}{3}\cdot m\right)=\ln(3)-\ln(2)+\ln\left(\frac{2}{3}m\right)
 \\\\
 \because m\in[1,2)
 \\\\
 \therefore \frac{2}{3}m\in\left([\frac{2}{3},\frac{4}{3})\approx[0.666,1.333)\right)
 \\\\
-ln(F)=ln(3)-ln(2)+(j-127)\times ln(2)+ln(\frac{2}{3}m)
+\ln(F)=\ln(3)-\ln(2)+(j-127)\times \ln(2)+\ln\left(\frac{2}{3}m\right)
 \\
-其中ln(2)，ln(3)皆为常数，(j-127)为浮点数阶码偏移值。
+\text{where } \ln(2), \ln(3) \text{ are constants, and } (j-127) \text{ is the floating-point exponent bias.}
 \\
-故只需对ln(\frac{2}{3}m)进行泰勒展开求和即可
+\text{Thus, only } \ln(\frac{2}{3}m) \text{ needs to be summed via Taylor expansion.}
 \\\\
-\ast 偏离量：0.6667 \ast
+\ast \text{ Deviation: } 0.6667 \ \ast
 $$
 
-<p><b><center>【法二】</center></b></p>
+<p><b><center>【Method Two】</center></b></p>
 
 $$
-ln(\sqrt{2}\cdot\frac{\sqrt{2}}{2}\cdot m)=\frac{1}{2}ln(2)+ln(\frac{\sqrt{2}}{2}m)
+\ln\left(\sqrt{2}\cdot\frac{\sqrt{2}}{2}\cdot m\right)=\frac{1}{2}\ln(2)+\ln\left(\frac{\sqrt{2}}{2}m\right)
 \\\\
 \because m\in[1,2)
 \\\\
 \therefore \frac{\sqrt{2}}{2}m\in\left([\frac{\sqrt{2}}{2},\sqrt{2})\approx[0.707,1.414)\right)
 \\\\
-ln(F)=\frac{1}{2}ln(2)+(j-127)\times ln(2)+ln(\frac{\sqrt{2}}{2}m)
+\ln(F)=\frac{1}{2}\ln(2)+(j-127)\times \ln(2)+\ln\left(\frac{\sqrt{2}}{2}m\right)
 \\
-其中ln(2)为常数，(j-127)为浮点数阶码偏移值。
+\text{where } \ln(2) \text{ is a constant, and } (j-127) \text{ is the floating-point exponent bias.}
 \\
-故只需对ln(\frac{\sqrt{2}}{2}m)进行泰勒展开求和即可
+\text{Thus, only } \ln(\frac{\sqrt{2}}{2}m) \text{ needs to be summed via Taylor expansion.}
 \\\\
-\ast 偏离量：0.7071 \ast
+\ast \text{ Deviation: } 0.7071 \ \ast
 $$
 
-## 四、ln(2)与ln(3)的求解
+## IV. Solving for $\ln(2)$ and $\ln(3)$
 
-上文中用到了常数$ln(2)$与$ln(3)$，二者皆可通过将其标准化至1的领域进行泰勒展开求解。
+The constants $\ln(2)$ and $\ln(3)$ used above can both be solved by standardizing to a neighborhood of 1 and applying Taylor expansion.
 
-在下面的代码实现中，函数*ln2ByTaylorSeries()*与*ln3ByTaylorSeries()*，通过以下方式将2与3标准化至1的邻域。
+In the code implementation below, the functions *ln2ByTaylorSeries()* and *ln3ByTaylorSeries()* standardize 2 and 3 to a neighborhood of 1 via the following method.
 $$
---ln(2)--
+--\ln(2)--
 \\\\
-\because ln(2^\frac{1}{16})=\frac{1}{16}ln(2)
+\because \ln(2^\frac{1}{16})=\frac{1}{16}\ln(2)
 \\
-\therefore ln(2)=16ln(2^\frac{1}{16})
+\therefore \ln(2)=16\ln(2^\frac{1}{16})
 \\
 \ast \quad 2-1=1, \quad \sqrt[16]{2}-1\approx 0.0442737 \quad \ast
 \\\\
---ln(3)--
+--\ln(3)--
 \\\\
-\because ln(3^\frac{1}{16})=\frac{1}{16}ln(3)
+\because \ln(3^\frac{1}{16})=\frac{1}{16}\ln(3)
 \\
-\therefore ln(3)=16ln(3^\frac{1}{16})
+\therefore \ln(3)=16\ln(3^\frac{1}{16})
 \\
 \ast \quad 3-1=2, \quad \sqrt[16]{3}-1\approx 0.0710754 \quad \ast
 $$
 
-## 五、代码实现
+## V. Code Implementation
 
 ```c
 #include <assert.h> // assert()
@@ -230,7 +230,7 @@ double my_ln_ver2(double x, int series)
 }
 ```
 
-## 六、测试对比代码
+## VI. Test Comparison Code
 
 ```c
 #include <math.h>   // log() for contrast difference.
@@ -284,6 +284,6 @@ void benchmark_performance_compare(
 }
 ```
 
-## 七、比对结果
+## VII. Comparison Results
 
-![benchmark](./benchmark_image/benchmark.png)
+![benchmark](../benchmark_image/benchmark.png)

@@ -1,6 +1,6 @@
 # 在计算机程序中通过泰勒级数求解对数函数
 
-[**简体中文** | [**English**](./doc/README_EN.md)]
+[**简体中文** | [**English**](./README_EN.md)]
 
 ## 介绍
 
@@ -286,4 +286,4 @@ void benchmark_performance_compare(
 
 ## 七、比对结果
 
-![benchmark](./benchmark_image/benchmark.png)
+![benchmark](../benchmark_image/benchmark.png)
