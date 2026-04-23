@@ -6,6 +6,7 @@
 namespace my_log
 {
 
+/// @brief Compute integer exponential powers using fast exponentiation.
 template <typename T>
 constexpr double powInt(T base, int exp) {
     if (exp == 0)   return 1.0;
@@ -22,10 +23,13 @@ constexpr double powInt(T base, int exp) {
     return result;
 }
 
+// some precomputed constants.
 constexpr double LN2 = 0.693147180559945309417232121458;
 constexpr double LN3 = 1.098612288668109691395245236922;
 constexpr double SQRT2 = 1.414213562373095048801688724209;
 
+// Ensure that the double type can be correctly converted to unsigned long long
+// to extract the exponent, mantissa, etc. of the double.
 static_assert(sizeof(unsigned long long) == sizeof(double), "The size of unsigned long long must equal to double");
 
 /// @param series The series larger, result more precise.
