@@ -1,19 +1,17 @@
-#include <cmath>
-#include <cstring>
-#include <exception>
-#include <iostream>
-
-namespace my_log
-{
+#include <cstring>  // memcpy
+#include <sdtio.h>  // Fot printf().
 
 /// @brief Compute integer exponential powers using fast exponentiation.
-template <typename T>
-constexpr double powInt(T base, int exp) {
-    if (exp == 0)   return 1.0;
-    if (exp < 0)    return 1.0 / powInt(base, -exp);
+double my_pow(double base, int exp)
+{
+    if (exp == 0)
+        return 1.0;
+    if (exp < 0)
+        return 1.0 / my_pow(base, -exp);
 
     double result = 1.0;
-    while (exp) {
+    while (exp)
+    {
         if (exp & 1)
             result *= base;
         base *= base;

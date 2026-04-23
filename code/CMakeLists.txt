@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 
-project(TaylorSeriesComputeLog LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+project(TaylorSeriesComputeLog LANGUAGES C)
+set(CMAKE_C_STANDARD 90)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
-add_executable(${PROJECT_NAME} log_compute.cpp)
+add_executable(${PROJECT_NAME} compute_log.c)
