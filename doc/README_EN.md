@@ -1,6 +1,6 @@
 # Solving Logarithmic Functions Using Taylor Series in Computer Programs
 
-[[**简体中文**](./README_CN.md) | **English**]
+[[**简体中文**](./README_ZH.md) | **English**]
 
 ## Introduction
 
