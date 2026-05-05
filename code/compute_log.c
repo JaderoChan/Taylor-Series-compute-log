@@ -1,8 +1,15 @@
-#include <assert.h> // assert()
+#ifndef TAYLOR_SERIES_COMP_LOG_NO_ASSERT
+    #include <assert.h> // assert()
+#endif // !TAYLOR_SERIES_COMP_LOG_NO_ASSERT
 #include <math.h>   // log() for contrast difference.
 #include <time.h>   // time_t, clock()
 #include <string.h> // memcpy()
 #include <stdio.h>  // printf()
+
+// Ensure that the double type can be correctly converted to unsigned long long
+// to extract the exponent, mantissa, etc. of the double.
+// Should produce compiler error if the unsigned long long size not same as double.
+typedef unsigned long long validate_ull_same_size_double[sizeof(unsigned long long) == sizeof(double) ? 1 : -1]
 
 #define ABS(x) ((x) < 0.0 ? -(x) : (x))
 
@@ -151,10 +158,6 @@ void benchmark_performance_compare(
 
 int main(int argc, char* argv[])
 {
-    // Ensure that the double type can be correctly converted to unsigned long long
-    // to extract the exponent, mantissa, etc. of the double.
-    assert(sizeof(unsigned long long) == sizeof(double));
-
     benchmark_precision_compare(1.0, 100.0, 0.01, my_ln_ver1, 100);
     benchmark_performance_compare(1.0, 10000.0, 0.5, my_ln_ver1, 100);
 
